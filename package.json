@@ -9,6 +9,7 @@
   "author": "eric",
   "license": "ISC",
   "dependencies": {
+    "12factor-config": "^1.1.0",
     "async": "^2.0.0-rc.3",
     "ramda": "^0.20.1",
     "request": "^2.70.0",
