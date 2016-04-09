@@ -1,0 +1,17 @@
+{
+  "name": "soundcloud",
+  "version": "1.0.0",
+  "description": "Download soundcloud stuff",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "eric",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^2.0.0-rc.3",
+    "ramda": "^0.20.1",
+    "request": "^2.70.0",
+    "youtube-dl": "^1.11.1"
+  }
+}
