@@ -11,6 +11,6 @@ var standardCb = function (err, data) {
   }
 };
 
-//download.getUserLikes('https://soundcloud.com/edouglastest', standardCb);
-//download.getPlaylist('https://soundcloud.com/edouglastest/sets/test_playlist', standardCb);
+//download.getUserLikes('https://soundcloud.com/someked', standardCb);
+//download.getPlaylist('https://soundcloud.com/sheltereddougie/sets/beat-culture', standardCb);
 
