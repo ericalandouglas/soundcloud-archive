@@ -10,7 +10,9 @@
   "license": "ISC",
   "dependencies": {
     "12factor-config": "^1.1.0",
+    "archiver": "^1.0.0",
     "async": "^2.0.0-rc.3",
+    "aws-sdk": "^2.3.2",
     "ramda": "^0.20.1",
     "request": "^2.70.0",
     "youtube-dl": "^1.11.1"
