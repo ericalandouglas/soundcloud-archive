@@ -13,6 +13,7 @@
     "archiver": "^1.0.0",
     "async": "^2.0.0-rc.3",
     "aws-sdk": "^2.3.2",
+    "express": "^4.13.4",
     "ramda": "^0.20.1",
     "request": "^2.70.0",
     "rimraf": "^2.5.2",
