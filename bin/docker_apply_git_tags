@@ -1,0 +1,75 @@
+Skip to content
+This repository
+Search
+Pull requests
+Issues
+Gist
+ @ericalandouglas
+ Unwatch 8
+  Star 0
+ Fork 0 Bridg/bridg-keen-migration PRIVATE
+ Code  Issues 0  Pull requests 0  Wiki  Pulse  Graphs  Settings
+Branch: master Find file Copy pathbridg-keen-migration/bin/docker_apply_git_tags
+f0efcb5  29 days ago
+@ericalandouglas ericalandouglas added scripts for circle deployment
+1 contributor
+RawBlameHistory     Executable File  61 lines (52 sloc)  1.42 KB
+#!/usr/bin/env sh
+# Tags docker image with any git tags using `git describe`.
+#
+# Usage:
+#    docker-tag <docker-image> <git-ref>
+#
+# Example:
+#    docker-tag bridg/bridg-people 6d07cb0o
+#
+# Errors:
+#    * 101: Docker image is required.
+set -e
+
+REF=HEAD
+
+usage () {
+    cat <<- _EOF_
+Usage: docker-tag -i image [-r git-ref]
+
+Tags a Docker image with any git tags for the provided git ref.
+Opinionated. Expects the image to be tagged with the full SHA1 ref.
+
+Options:
+  -i, --image         The Docker image in [ns/]name format.
+  -r, --ref=HEAD      A Git ref that will be checked for tags.
+_EOF_
+}
+
+if [ "$1" = "" ]; then
+  usage
+  exit 0
+fi
+while [ "$1" != "" ]; do
+    case $1 in
+        -i | --image )          shift
+                                IMAGE_NAME=$1
+                                ;;
+        -r | --ref )            shift
+                                REF=$1
+                                ;;
+        -h | --help )           usage
+                                exit
+                                ;;
+        * )                     usage
+                                exit 1
+    esac
+    shift
+done
+
+if [ ! [${IMAGE_NAME}] ]; then
+  echo "Docker image name is required!" 1>&2
+  exit 101
+fi
+
+echo "Applying git tags to Docker image ${IMAGE_NAME}:${REF}"
+SHA=`git rev-parse --verify ${REF}`
+git describe --exact-match --tags --abbrev=0 ${REF} 2> /dev/null \
+  | xargs -t -I % \
+    docker tag ${IMAGE_NAME}:${SHA} ${IMAGE_NAME}:%
