@@ -1,0 +1,27 @@
+machine:
+  services:
+    - docker
+  node:
+    version: 5.11.0
+  environment:
+    DOCKER_REPOSITORY: edouglas92/soundcloud-app
+
+dependencies:
+  pre:
+    - docker info
+    - docker build -t $DOCKER_REPOSITORY:$CIRCLE_SHA1 .
+
+test:
+  override:
+    - echo "All things must pass."
+
+deployment:
+
+  # Push the built Docker image to Docker Hub.
+  docker-hub:
+    branch: /.*/
+    commands:
+      - docker login --email="$DOCKER_EMAIL" --username="$DOCKER_USERNAME" --password="$DOCKER_PASSWORD"
+      - docker tag $DOCKER_REPOSITORY:$CIRCLE_SHA1 $DOCKER_REPOSITORY:$CIRCLE_BRANCH
+      - bin/docker_apply_git_tags -i $DOCKER_REPOSITORY -r $CIRCLE_SHA1
+      - docker push $DOCKER_REPOSITORY

@@ -1,0 +1,9 @@
+version: '2'
+
+services:
+  soundcloud:
+    build: .
+    image: soundcloud-node-app # local image
+    env_file: .env
+    ports:
+      - "8000:8000"
